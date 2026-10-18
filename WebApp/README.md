@@ -16,13 +16,15 @@
 | Auth | Supabase | Google, Email Signin, etc., |
 | Database | Supabase (PostgreSQL) | Application data storage |
 | Hosting | Vercel | Deploy and host the web application |
+| Payments | RazorPay | For hassle free payments |
+| Storage (images and videos) | Cloudinary | A simple storage provider for Images and Videos |
 
 ## Features
 
 - Signin or Signup
 - Customize your keyboard or choose from existing Models
 - Add to cart or direct buy
-- 3D viewing of final product*
+- 2-D viewing of final product*
 - Payments through Razorpay
 - Track your order
 

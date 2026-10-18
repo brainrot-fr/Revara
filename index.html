@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System – Harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --radius:.75rem;
+  --background:#FAF8FD;--foreground:#2A2233;--card:#fff;--popover:#fff;
+  --primary:#6B4FBB;--primary-foreground:#fff;--primary-hover:#5B41A5;
+  --secondary:#EFE9FA;--secondary-foreground:#3F2F73;
+  --muted:#F1EDF8;--muted-foreground:#675E75;--accent:#EDE6F9;--accent-foreground:#3F2F73;
+  --border:#E4DDF0;--input:#D6CCE6;--ring:#8466D1;
+  --destructive:#B3263E;--success:#2F7D5B;--warning:#8A5A00;--info:#3A62B8;
+  --destructive-soft:#FBE9EC;--success-soft:#E6F4EC;--warning-soft:#FFF3D6;--info-soft:#E7EEFB;
+  --sakura:#F4C9DA;
+  --shadow-xs:0 1px 2px rgb(60 40 110/.06);--shadow-sm:0 2px 8px rgb(60 40 110/.08);--shadow-lg:0 12px 32px rgb(60 40 110/.14);
+  --font-display:"Plus Jakarta Sans",system-ui,sans-serif;--font-body:"Manrope",system-ui,sans-serif;--font-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+[data-theme=dark]{
+  --background:#17131F;--foreground:#F1ECF8;--card:#1F1A2A;--popover:#1F1A2A;
+  --primary:#A58BF0;--primary-foreground:#17131F;--primary-hover:#B7A2F5;
+  --secondary:#2B2340;--secondary-foreground:#E4DBFA;--muted:#272033;--muted-foreground:#B3A9C4;
+  --accent:#322A47;--accent-foreground:#E4DBFA;--border:#332B45;--input:#4A3F63;--ring:#A58BF0;
+  --destructive:#F27A8D;--success:#6CCB9D;--warning:#E8B04A;--info:#8FB0F0;
+  --destructive-soft:#3A1B25;--success-soft:#173226;--warning-soft:#3A2D12;--info-soft:#1B2740;
+  --sakura:#5A3347;color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]):not([data-theme=dark]){}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--background);color:var(--foreground);font:400 1rem/1.6 var(--font-body);padding-top:env(safe-area-inset-top,0)}
+h1,h2{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(1.75rem,4vw,2.25rem);line-height:1.15}
+h2{font-size:1.5rem;line-height:1.25}
+h3{font-size:1.125rem;font-weight:600;margin:0;line-height:1.4}
+p{margin:0}
+.small{font-size:.875rem;line-height:1.5}.muted{color:var(--muted-foreground)}
+.caption{font-size:.75rem;font-weight:500;line-height:1.4}
+.mono{font-family:var(--font-mono)}
+a{color:var(--primary)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;background:var(--card);padding:.5rem 1rem;border-radius:8px;z-index:9}
+header.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--background) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.bar{max-width:72rem;margin:auto;padding:0 1rem;height:4rem;display:flex;align-items:center;gap:1.5rem}
+.brand{font-family:var(--font-display);font-weight:600;font-size:1.25rem}
+nav{display:flex;gap:1.25rem;flex:1;overflow-x:auto}
+nav a{color:var(--muted-foreground);text-decoration:none;font-size:.875rem;font-weight:500;padding:.25rem 0;white-space:nowrap}
+nav a:hover,nav a[aria-current]{color:var(--primary)}
+nav a[aria-current]{box-shadow:0 2px 0 var(--primary)}
+main{max-width:72rem;margin:auto;padding:2rem 1rem 5rem;display:grid;gap:3rem}
+section{display:grid;gap:1rem;scroll-margin-top:5rem}
+.row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))}
+.grid.w{grid-template-columns:repeat(auto-fill,minmax(16rem,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:calc(var(--radius) + 4px);padding:1.5rem;display:grid;gap:.75rem}
+.card.click{transition:box-shadow .25s}.card.click:hover{box-shadow:var(--shadow-sm)}
+select,input,button,textarea{font:inherit;color:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:2.5rem;padding:0 1rem;border-radius:calc(var(--radius) - 2px);border:1px solid transparent;font-weight:500;font-size:.875rem;cursor:pointer;transition:background .15s,box-shadow .15s}
+.btn.sm{height:2rem;padding:0 .75rem}.btn.lg{height:3rem;padding:0 1.5rem;font-size:1rem}
+.btn.default{background:var(--primary);color:var(--primary-foreground);box-shadow:var(--shadow-xs)}.btn.default:hover{background:var(--primary-hover)}
+.btn.secondary{background:var(--secondary);color:var(--secondary-foreground)}.btn.secondary:hover{background:var(--accent)}
+.btn.outline{background:var(--card);border-color:var(--input)}.btn.outline:hover{background:var(--accent)}
+.btn.ghost:hover{background:var(--accent)}
+.btn.destructive{background:var(--destructive);color:#fff}
+.btn.link{color:var(--primary);text-decoration:underline;padding:0}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.spin{width:1em;height:1em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.field{display:grid;gap:.375rem}
+label{font-size:.875rem;font-weight:500}
+.input{height:2.5rem;padding:0 .75rem;border:1px solid var(--input);border-radius:calc(var(--radius) - 2px);background:var(--card);box-shadow:var(--shadow-xs);width:100%}
+.input::placeholder{color:var(--muted-foreground)}
+.input[aria-invalid=true]{border-color:var(--destructive)}
+.err{color:var(--destructive);font-size:.875rem}
+.badge{display:inline-flex;align-items:center;padding:.125rem .625rem;border-radius:999px;font-size:.75rem;font-weight:500;background:var(--secondary);color:var(--secondary-foreground)}
+.badge.success{background:var(--success-soft);color:var(--success)}.badge.warning{background:var(--warning-soft);color:var(--warning)}
+.badge.destructive{background:var(--destructive-soft);color:var(--destructive)}.badge.sakura{background:var(--sakura);color:#6B2147}
+.alert{display:flex;gap:.75rem;padding:1rem;border-radius:var(--radius);border:1px solid;font-size:.875rem}
+.alert.info{background:var(--info-soft);color:var(--info);border-color:currentColor}
+.alert.success{background:var(--success-soft);color:var(--success);border-color:currentColor}
+.alert.warning{background:var(--warning-soft);color:var(--warning);border-color:currentColor}
+.alert.destructive{background:var(--destructive-soft);color:var(--destructive);border-color:currentColor}
+.alert b{display:block;color:var(--foreground)}
+.sw{height:3.5rem;border-radius:var(--radius);border:1px solid var(--border);display:flex;align-items:end;padding:.5rem}
+.opt{border:1px solid var(--input);border-radius:var(--radius);padding:1rem;background:var(--card);cursor:pointer;display:flex;justify-content:space-between;gap:.5rem;text-align:left;width:100%}
+.opt[aria-checked=true]{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.dot{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--card);box-shadow:0 0 0 1px var(--input);cursor:pointer;padding:0}
+.dot[aria-checked=true]{box-shadow:0 0 0 2px var(--primary)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{background:var(--muted);text-align:left;font-weight:500;padding:.75rem 1rem}
+td{padding:.75rem 1rem;border-top:1px solid var(--border);height:3rem}
+tbody tr:hover{background:color-mix(in srgb,var(--accent) 50%,transparent)}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:calc(var(--radius) + 4px);background:var(--card)}
+.skel{background:var(--muted);border-radius:8px;animation:p 1.5s ease-in-out infinite}
+@keyframes p{50%{opacity:.5}}
+.empty{text-align:center;justify-items:center;padding:2.5rem 1.5rem}
+.ico{width:3rem;height:3rem;border-radius:50%;background:var(--muted);display:grid;place-items:center;color:var(--muted-foreground)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.steps li{display:flex;gap:.75rem;align-items:center}
+.st{width:1.75rem;height:1.75rem;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:600;background:var(--muted);color:var(--muted-foreground)}
+.done .st{background:var(--success);color:#fff}.now .st{background:var(--primary);color:var(--primary-foreground)}
+dialog{border:1px solid var(--border);border-radius:calc(var(--radius) + 4px);background:var(--popover);color:var(--foreground);box-shadow:var(--shadow-lg);padding:1.5rem;max-width:28rem;width:calc(100% - 2rem)}
+dialog::backdrop{background:rgb(23 19 31/.5)}
+.tools{display:flex;gap:.75rem;margin-left:auto}
+.tools select{height:2rem;border-radius:8px;border:1px solid var(--input);background:var(--card);padding:0 .5rem}
+.spec{display:grid;gap:.25rem}
+@media (max-width:640px){.tools select{max-width:7rem}.hide-m{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="bar">
+  <span class="brand">Brand</span>
+  <nav aria-label="Primary"><a href="#colors" aria-current="page">Colors</a><a href="#type">Type</a><a href="#brand">Brand</a><a href="#tokens">Tokens</a><a href="#buttons">Buttons</a><a href="#forms">Forms</a><a href="#cards">Cards</a><a href="#preview">Preview</a><a href="#feedback">Feedback</a><a href="#data">Data</a></nav>
+  <div class="tools">
+    <button class="btn outline sm" id="theme" type="button" aria-pressed="false">Dark</button>
+  </div>
+</div></header>
+
+<main id="main">
+<section>
+  <h1>Design system harness</h1>
+  <p class="muted" style="max-width:60ch">Reference page for tokens and patterns in <span class="mono">DESIGN.md</span>. Static HTML that mirrors shadcn/ui styling; the real app must use shadcn/ui components. Fonts: Plus Jakarta Sans + Manrope. Toggle the theme above.</p>
+</section>
+
+<section id="colors"><h2>Color</h2>
+  <div class="grid" id="swatches"></div>
+  <p class="small muted">Sakura is decorative only (badges, illustration tints). Never for text or buttons.</p>
+</section>
+
+<section id="type"><h2>Typography</h2>
+  <div class="card">
+    <div style="font:600 3rem/1.1 var(--font-display)">Display: Build it, repair it</div>
+    <h1>H1: Customize your keyboard</h1><h2>H2: Choose a case</h2><h3>H3: Hot-swap sockets</h3>
+    <p>Body: Every part of our boards can be swapped, so it keeps working long after a normal keyboard would be thrown away.</p>
+    <p class="small muted">Small / muted: Final product may vary slightly.</p>
+    <p class="caption muted">CAPTION · SKU <span class="mono">RVR-KB-0001</span> · <span style="font-variant-numeric:tabular-nums">₹12,499</span></p>
+  </div>
+</section>
+
+<section id="brand"><h2>Brand (concept)</h2>
+  <div class="card"><div class="row" style="gap:1.5rem">
+    <svg viewBox="0 0 264 264" width="96" height="96" role="img" aria-label="Brand mark: a keycap, switch and socket floating apart">
+<title>Brand mark</title>
+<g id="socket">
+<polygon points="34.7,214.5 132.2,250.3 132.2,226.3 34.7,190.5" fill="#4F3892" stroke="#4F3892" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,250.3 229.6,214.5 229.6,190.5 132.2,226.3" fill="#3F2F73" stroke="#3F2F73" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,154.6 229.6,190.5 132.2,226.3 34.7,190.5" fill="#5B41A5" stroke="#5B41A5" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="110.0,196.4 108.6,196.8 107.0,197.1 105.2,197.2 103.4,197.2 101.7,197.1 100.1,196.8 98.7,196.4 97.5,195.9 96.8,195.3 96.4,194.6 96.4,194.0 96.8,193.3 97.5,192.8 98.7,192.2 100.1,191.8 101.7,191.5 103.4,191.4 105.2,191.4 107.0,191.5 108.6,191.8 110.0,192.2 111.1,192.8 111.9,193.3 112.3,194.0 112.3,194.6 111.9,195.3 111.1,195.9" fill="#231A3F"/>
+<polygon points="165.7,196.4 164.3,196.8 162.6,197.1 160.9,197.2 159.1,197.2 157.4,197.1 155.7,196.8 154.3,196.4 153.2,195.9 152.5,195.3 152.1,194.6 152.1,194.0 152.5,193.3 153.2,192.8 154.3,192.2 155.7,191.8 157.4,191.5 159.1,191.4 160.9,191.4 162.6,191.5 164.3,191.8 165.7,192.2 166.8,192.8 167.5,193.3 167.9,194.0 167.9,194.6 167.5,195.3 166.8,195.9" fill="#231A3F"/>
+</g>
+<g id="switch-foot">
+<polygon points="88.7,154.5 132.2,170.5 132.2,160.5 88.7,144.5" fill="#CBBBF0" stroke="#CBBBF0" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,170.5 175.7,154.5 175.7,144.5 132.2,160.5" fill="#AF9AE6" stroke="#AF9AE6" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,128.5 175.7,144.5 132.2,160.5 88.7,144.5" fill="#E4DAF8" stroke="#E4DAF8" stroke-width="3.5" stroke-linejoin="round"/>
+</g>
+<g id="switch">
+<polygon points="76.5,144.5 132.2,165.0 132.2,141.0 76.5,120.5" fill="#CBBBF0" stroke="#CBBBF0" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,165.0 187.8,144.5 187.8,120.5 132.2,141.0" fill="#AF9AE6" stroke="#AF9AE6" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,100.0 187.8,120.5 132.2,141.0 76.5,120.5" fill="#E4DAF8" stroke="#E4DAF8" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="139.1,116.0 144.3,117.9 125.2,125.0 120.0,123.0" fill="#AF9AE6" stroke="#AF9AE6" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="125.2,116.0 144.3,123.0 139.1,125.0 120.0,117.9" fill="#AF9AE6" stroke="#AF9AE6" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="keycap">
+<polygon points="55.6,80.5 132.2,108.6 132.2,55.0 76.5,34.5" fill="#6B4FBB" stroke="#6B4FBB" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,108.6 208.7,80.5 187.8,34.5 132.2,55.0" fill="#4F3892" stroke="#4F3892" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,14.0 187.8,34.5 132.2,55.0 76.5,34.5" fill="#A58BF0" stroke="#A58BF0" stroke-width="3.5" stroke-linejoin="round"/>
+<polygon points="132.2,22.2 165.6,34.5 132.2,46.8 98.8,34.5" fill="#9479E8" stroke="#9479E8" stroke-width="3.5" stroke-linejoin="round"/>
+</g>
+</svg>
+    <span style="font:700 1.75rem var(--font-display);letter-spacing:-.01em">Brand</span>
+    <p class="small muted" style="max-width:44ch">Interim mark (<span class="mono">brand/logo-mark.svg</span>): keycap, switch and socket floating apart. To be refined by a designer.</p>
+  </div></div></section>
+
+<section id="tokens"><h2>Radius, shadow, spacing</h2>
+  <div class="grid">
+    <div class="card" style="box-shadow:var(--shadow-xs)"><b>shadow-xs</b><span class="small muted">Inputs, buttons</span></div>
+    <div class="card" style="box-shadow:var(--shadow-sm)"><b>shadow-sm</b><span class="small muted">Card hover</span></div>
+    <div class="card" style="box-shadow:var(--shadow-lg)"><b>shadow-lg</b><span class="small muted">Dialogs, popovers</span></div>
+  </div>
+  <div class="row" aria-label="Spacing scale">
+    <span class="small muted">4px grid:</span>
+    <span style="display:flex;gap:.5rem;align-items:end" id="space"></span>
+  </div>
+  <div class="row"><span class="badge">rounded-full</span><span class="btn outline">rounded-md 10px</span><span class="card" style="padding:.75rem 1rem">rounded-xl 16px</span></div>
+</section>
+
+<section id="buttons"><h2>Buttons</h2>
+  <div class="row"><button class="btn default">Add to cart</button><button class="btn secondary">Save design</button><button class="btn outline">Compare</button><button class="btn ghost">Cancel</button><button class="btn destructive">Remove part</button><button class="btn link">Learn about repairs</button></div>
+  <div class="row"><button class="btn default sm">Small</button><button class="btn default">Default 40</button><button class="btn default lg">Buy now · lg 48</button><button class="btn default" disabled>Disabled</button><button class="btn default" aria-busy="true"><span class="spin"></span>Adding…</button></div>
+</section>
+
+<section id="forms"><h2>Forms &amp; option pickers</h2>
+  <div class="grid w">
+    <div class="card">
+      <h3>Create your account</h3>
+      <button class="btn outline" type="button">Continue with Google</button>
+      <p class="small muted" style="text-align:center">or</p>
+      <div class="field"><label for="e">Email</label><input class="input" id="e" type="email" placeholder="you@example.com" autocomplete="email"></div>
+      <div class="field"><label for="p">Password</label><input class="input" id="p" type="password" aria-invalid="true" aria-describedby="pe" value="abc"><span class="err" id="pe" role="alert">Password is too short. Use at least 8 characters.</span></div>
+      <button class="btn default" type="button">Create account</button>
+    </div>
+    <div class="card">
+      <h3>Case material</h3>
+      <div role="radiogroup" aria-label="Case material" style="display:grid;gap:.5rem">
+        <button class="opt" role="radio" aria-checked="true"><span><b>Aluminium</b><br><span class="small muted">Heavier, solid sound</span></span><span class="small">+₹2,400</span></button>
+        <button class="opt" role="radio" aria-checked="false"><span><b>Polycarbonate</b><br><span class="small muted">Light, softer sound</span></span><span class="small">Included</span></button>
+      </div>
+      <h3 style="margin-top:.5rem">Colourway</h3>
+      <div role="radiogroup" aria-label="Colourway" class="row">
+        <button class="dot" role="radio" aria-checked="true" aria-label="Lilac" style="background:#B9A6E8"></button>
+        <button class="dot" role="radio" aria-checked="false" aria-label="Sakura" style="background:#F4C9DA"></button>
+        <button class="dot" role="radio" aria-checked="false" aria-label="Graphite" style="background:#3B3744"></button>
+        <button class="dot" role="radio" aria-checked="false" aria-label="Ivory" style="background:#F3EEE3"></button>
+      </div>
+      <p class="small muted">Selected: Lilac</p>
+    </div>
+  </div>
+</section>
+
+<section id="cards"><h2>Cards, navigation, dialog</h2>
+  <div class="grid w">
+    <article class="card click"><div class="skel" style="aspect-ratio:4/3;animation:none"></div><span class="badge sakura" style="justify-self:start">New</span><h3>Keyboard 75</h3><p class="small muted">Wireless · hot-swap · 75% layout</p><div class="row" style="justify-content:space-between"><b style="font-variant-numeric:tabular-nums">₹12,499</b><button class="btn default sm">Customize</button></div></article>
+    <article class="card"><h3>Order tracking</h3>
+      <ol class="steps"><li class="done"><span class="st">✓</span>Placed</li><li class="done"><span class="st">✓</span>Paid</li><li class="now"><span class="st">3</span><b>Building</b></li><li><span class="st">4</span><span class="muted">Shipped</span></li><li><span class="st">5</span><span class="muted">Delivered</span></li></ol></article>
+    <article class="card"><h3>Dialog</h3><p class="small muted">Alert dialog for destructive actions.</p><button class="btn outline" id="open">Remove design</button></article>
+  </div>
+  <dialog id="dlg" aria-labelledby="dt"><h3 id="dt">Remove “My 75 build”?</h3><p class="small muted" style="margin:.5rem 0 1.5rem">This design and its saved options will be deleted. This can’t be undone.</p><form method="dialog" class="row" style="justify-content:flex-end"><button class="btn outline" value="k">Keep design</button><button class="btn destructive" value="d">Remove design</button></form></dialog>
+</section>
+
+<section id="preview"><h2>Keyboard preview (2D)</h2>
+  <div class="grid w">
+    <div class="card"><svg id="kb" viewBox="0 0 520 190" role="img" aria-label="" style="width:100%;height:auto"><rect x="3" y="3" width="514" height="184" rx="14" fill="var(--case)"/><g id="keys"></g></svg>
+      <p class="small muted" id="kbtxt" aria-live="polite"></p><p class="caption muted">Preview is illustrative. Final product may vary slightly.</p></div>
+    <div class="card"><h3>Case colourway</h3><div role="radiogroup" aria-label="Case colourway" class="row" id="gcase"></div>
+      <h3>Keycap colourway</h3><div role="radiogroup" aria-label="Keycap colourway" class="row" id="gkeys"></div></div>
+  </div></section>
+
+<section id="feedback"><h2>Feedback, empty, loading, error</h2>
+  <div class="grid w">
+    <div class="alert info" role="status"><div><b>Final product may vary slightly</b>Colours on screen can differ from the real parts.</div></div>
+    <div class="alert success" role="status"><div><b>Payment received</b>We’ve started building your keyboard.</div></div>
+    <div class="alert warning"><div><b>Low stock</b>Only 3 Aluminium cases left this month.</div></div>
+    <div class="alert destructive" role="alert"><div><b>Payment didn’t go through</b>Your bank declined the card. Try another card or UPI.</div></div>
+  </div>
+  <div class="grid w">
+    <div class="card empty"><div class="ico" aria-hidden="true">🛒︎</div><h3>Your cart is empty</h3><p class="small muted">Pick a layout to start building your keyboard.</p><button class="btn default">Start customizing</button></div>
+    <div class="card" aria-busy="true" aria-label="Loading"><div class="skel" style="height:8rem"></div><div class="skel" style="height:1rem;width:70%"></div><div class="skel" style="height:1rem;width:40%"></div><p class="small muted">Loading preview…</p></div>
+  </div>
+</section>
+
+<section id="data"><h2>Table</h2>
+  <div class="tw"><table><thead><tr><th scope="col">Order</th><th scope="col">Status</th><th scope="col">Date</th><th scope="col" class="num">Total</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">RVR-1042</td><td><span class="badge warning">Building</span></td><td>12 Oct 2026</td><td class="num">₹12,499</td></tr>
+    <tr><td class="mono">RVR-0977</td><td><span class="badge success">Delivered</span></td><td>28 Aug 2026</td><td class="num">₹9,850</td></tr>
+    <tr><td class="mono">RVR-0951</td><td><span class="badge destructive">Payment failed</span></td><td>14 Aug 2026</td><td class="num">₹4,200</td></tr>
+  </tbody></table></div>
+</section>
+</main>
+
+<script>
+const r=document.documentElement;
+const tb=document.getElementById('theme');
+tb.onclick=()=>{const dark=r.dataset.theme!=='dark';r.dataset.theme=dark?'dark':'light';tb.textContent=dark?'Light':'Dark';tb.setAttribute('aria-pressed',dark)};
+const toks=[['background','Page'],['foreground','Text'],['card','Card'],['primary','Primary'],['secondary','Secondary'],['muted','Muted'],['accent','Accent/hover'],['border','Border'],['ring','Focus ring'],['destructive','Destructive'],['success','Success'],['warning','Warning'],['info','Info'],['sakura','Sakura (decor)']];
+document.getElementById('swatches').innerHTML=toks.map(([t,l])=>`<div><div class="sw" style="background:var(--${t})"></div><div class="small"><b>${l}</b></div><div class="caption muted mono">--${t}</div></div>`).join('');
+document.getElementById('space').innerHTML=[4,8,12,16,24,32,48,64].map(n=>`<span title="${n}px" style="width:${n}px;height:${n}px;background:var(--primary);border-radius:2px;display:block"></span>`).join('');
+const dlg=document.getElementById('dlg');document.getElementById('open').onclick=()=>dlg.showModal();
+
+const CW=[['Lilac','#B9A6E8'],['Sakura','#F4C9DA'],['Graphite','#3B3744'],['Ivory','#F3EEE3']];
+const kb=document.getElementById('kb'),st={case:0,keys:3};
+const rows=[Array(15).fill(1),Array(15).fill(1),[1.5,...Array(12).fill(1),1.5],[1.75,...Array(11).fill(1),2.25],[2.25,...Array(10).fill(1),1.75,1],[1.25,1.25,1.25,6.25,1,1,1,1,1,1]];
+let k='';rows.forEach((r,i)=>{let x=14;r.forEach(w=>{const W=w*33-3;k+=`<rect x="${x}" y="${14+i*28.5}" width="${W}" height="25" rx="4" fill="var(--keys)" stroke="rgb(0 0 0/.18)"/>`;x+=w*33})});
+document.getElementById('keys').innerHTML=k;
+function paint(){kb.style.setProperty('--case',CW[st.case][1]);kb.style.setProperty('--keys',CW[st.keys][1]);
+ const t=`75% layout, ${CW[st.case][0]} case, ${CW[st.keys][0]} keycaps`;kb.setAttribute('aria-label',t);document.getElementById('kbtxt').textContent=t;
+ ['case','keys'].forEach(g=>document.querySelectorAll('#g'+g+' .dot').forEach((b,i)=>b.setAttribute('aria-checked',i===st[g])))}
+['case','keys'].forEach(g=>{document.getElementById('g'+g).innerHTML=CW.map(([n,c],i)=>`<button class="dot" role="radio" aria-label="${n}" style="background:${c}"></button>`).join('');
+ document.querySelectorAll('#g'+g+' .dot').forEach((b,i)=>b.onclick=()=>{st[g]=i;paint()})});
+paint();
+</script>
+</body>
+</html>
